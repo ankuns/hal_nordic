@@ -5903,6 +5903,9 @@ static bool nrf53_errata_161(void)
                     }
                 }
             #endif
+            #if defined (NRF_APPLICATION)
+                return true;
+            #endif
         #endif
         return false;
     #endif
