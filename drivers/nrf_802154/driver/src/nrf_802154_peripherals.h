@@ -49,6 +49,8 @@
 #include "nrf_802154_peripherals_nrf52.h"
 #elif defined(NRF5340_XXAA)
 #include "nrf_802154_peripherals_nrf53.h"
+#elif defined(NRF54L_SERIES)
+#include "nrf_802154_peripherals_nrf54l.h"
 #endif
 
 #ifdef NRF_802154_USE_INTERNAL_INCLUDES

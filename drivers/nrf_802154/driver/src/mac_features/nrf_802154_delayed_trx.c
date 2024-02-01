@@ -74,6 +74,9 @@
 #elif defined(NRF53_SERIES)
 #define TX_SETUP_TIME_MAX 360u ///< Maximum time needed to prepare TX procedure [us]. It does not include TX ramp-up time.
 #define RX_SETUP_TIME_MAX 290u ///< Maximum time needed to prepare RX procedure [us]. It does not include RX ramp-up time.
+#elif defined(NRF54L_SERIES)
+#define TX_SETUP_TIME_MAX 600u ///< Maximum time needed to prepare TX procedure [us]. It does not include TX ramp-up time.
+#define RX_SETUP_TIME_MAX 600u ///< Maximum time needed to prepare RX procedure [us]. It does not include RX ramp-up time.
 #endif
 
 /**
