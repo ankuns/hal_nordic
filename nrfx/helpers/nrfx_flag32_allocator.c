@@ -79,6 +79,19 @@ nrfx_err_t nrfx_flag32_alloc(nrfx_atomic_t * p_mask, uint8_t *p_flag)
     return NRFX_SUCCESS;
 }
 
+uint32_t nrfx_flag32_mark_allocated(nrfx_atomic_t * p_mask, uint32_t allocated_mask)
+{
+    uint32_t prev_mask;
+    uint32_t new_mask;
+
+    do {
+        prev_mask = *p_mask;
+        new_mask = prev_mask & (~allocated_mask);
+    } while (!NRFX_ATOMIC_CAS(p_mask, prev_mask, new_mask));
+
+    return prev_mask & allocated_mask;
+}
+
 nrfx_err_t nrfx_flag32_free(nrfx_atomic_t * p_mask, uint8_t flag)
 {
     uint32_t new_mask, prev_mask;

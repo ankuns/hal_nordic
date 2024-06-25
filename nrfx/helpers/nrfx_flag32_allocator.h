@@ -97,6 +97,22 @@ bool nrfx_flag32_is_allocated(nrfx_atomic_t mask, uint8_t bitpos);
 nrfx_err_t nrfx_flag32_alloc(nrfx_atomic_t * p_mask, uint8_t * p_flag);
 
 /**
+ * @brief Function for marking given set of flags as allocated.
+ * 
+ * function allows marking the allocated flags as allocated in an incremental way,
+ * what is not possible with @ref nrfx_flag32_init function. If possible please use
+ * the @ref nrfx_flag32_alloc function.
+ *
+ * @param[in,out] p_mask Mask with available flags set.
+ * @param allocated_mask Mask containing the flags to be marked as allocated.
+ *
+ * @return Mask containing flags that overlap with already allocated flags. The zero
+ * value means no overlap. The function marks requested flags as allocated regardless
+ * of previous value.
+ */
+uint32_t nrfx_flag32_mark_allocated(nrfx_atomic_t * p_mask, uint32_t allocated_mask);
+
+/**
  * @brief Function for freeing a flag allocated with @ref nrfx_flag32_alloc.
  *
  * @note Function is thread safe, it uses @ref NRFX_ATOMIC_CAS macro. No further
