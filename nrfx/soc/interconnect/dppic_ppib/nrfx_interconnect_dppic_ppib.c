@@ -56,6 +56,33 @@ nrfx_interconnect_dppic_ppib_t interconnect_dppic_ppib[] = NRFX_INTERCONNECT_DPP
 /* Each DPPIC needs to have its own properties structure. */
 NRFX_STATIC_ASSERT(NRFX_INTERCONNECT_DPPIC_PPIB_COUNT == NRFX_ARRAY_SIZE(interconnect_dppic_ppib));
 
+void nrfx_interconnect_dppic_channels_mark_allocated(NRF_DPPIC_Type * p_dppic, uint32_t channels_mask)
+{
+    for (uint8_t i = 0U; i < NRFX_ARRAY_SIZE(interconnect_dppic); ++i)
+    {
+        nrfx_interconnect_dppic_t * p_dppic_obj = &interconnect_dppic[i];
+
+        if (p_dppic_obj->dppic == p_dppic)
+        {
+            nrfx_flag32_mark_allocated(&p_dppic_obj->channels_mask, channels_mask);
+        }
+    }
+}
+
+void nrfx_interconnect_ppib_channels_mark_allocated(NRF_PPIB_Type * p_ppib, uint32_t channels_mask)
+{
+    for (uint8_t i = 0U; i < NRFX_ARRAY_SIZE(interconnect_ppib); ++i)
+    {
+        nrfx_interconnect_ppib_t * p_ppib_obj = &interconnect_ppib[i];
+
+        if ((p_ppib_obj->p_ppib1 == p_ppib) || (p_ppib_obj->p_ppib2))
+        {
+            nrfx_flag32_mark_allocated(&p_ppib_obj->channels_mask, channels_mask);
+        }
+    }
+}
+
+
 nrfx_interconnect_dppic_t * nrfx_interconnect_dppic_at_index_get(uint8_t index)
 {
     NRFX_ASSERT(index < NRFX_INTERCONNECT_DPPIC_COUNT);

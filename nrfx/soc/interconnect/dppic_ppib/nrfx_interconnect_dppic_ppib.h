@@ -82,6 +82,28 @@ typedef struct
     bool                        ppib_inverted; ///< True if PPIB connection goes from second to first PPIB peripherial instance, false otherwise.
 } nrfx_interconnect_dppic_to_dppic_path_t;
 
+/** @brief Marks given DPPIC channels on given DPPIC as allocated.
+ * 
+ *  The channels on given DPPIC will be marked as allocated. They will be excluded from
+ *  allocation so that modules using fixed set of DPPI channels on given DPPIC can be
+ *  safely used.
+ *
+ *  @param[in] p_dppic       Pointer to a DPPIC peripheral.
+ *  @param[in] channels_mask Mask of channels within @c p_dppic that are to be marked as allocated.
+ */
+void nrfx_interconnect_dppic_channels_mark_allocated(NRF_DPPIC_Type * p_dppic, uint32_t channels_mask);
+
+/** @brief Marks given PPIB channels on given PPIB as allocated.
+ * 
+ *  The channels on given PPIB will be marked as allocated. They will be excluded from
+ *  allocation so that modules using fixed set of PPIB channels on given PPIB can be
+ *  safely used.
+ *
+ *  @param[in] p_dppic       Pointer to a PPIB peripheral.
+ *  @param[in] channels_mask Mask of channels within @c p_ppib that are to be marked as allocated.
+ */
+void nrfx_interconnect_ppib_channels_mark_allocated(NRF_PPIB_Type * p_ppib, uint32_t channels_mask);
+
 /**
  * @brief Function for getting DPPIC interconnect object under a specific index from connection map.
  *
